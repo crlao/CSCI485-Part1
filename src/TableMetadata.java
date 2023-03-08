@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 
 /**
@@ -14,7 +16,7 @@ public class TableMetadata {
   private HashMap<String, AttributeType> attributes;
 
   // A list contains names of the primary key attribute.
-  private List<String> primaryKeys;
+  private Set<String> primaryKeys;
 
   @Override
   public boolean equals(Object o) {
@@ -31,7 +33,7 @@ public class TableMetadata {
 
   public TableMetadata() {
     attributes = new HashMap<>();
-    primaryKeys = new ArrayList<>();
+    primaryKeys = new HashSet<>();
   }
 
   public TableMetadata(String[] attributeNames, AttributeType[] attributeTypes, String[] primaryKeys) {
@@ -39,7 +41,7 @@ public class TableMetadata {
     for (int i = 0; i < attributeTypes.length; i++) {
       attributes.put(attributeNames[i], attributeTypes[i]);
     }
-    this.primaryKeys = Arrays.asList(primaryKeys);
+    this.primaryKeys = new HashSet<String>(Arrays.asList(primaryKeys));
   }
 
   public boolean doesAttributeExist(String attributeName) {
@@ -58,11 +60,11 @@ public class TableMetadata {
     this.attributes = attributes;
   }
 
-  public List<String> getPrimaryKeys() {
+  public Set<String> getPrimaryKeys() {
     return primaryKeys;
   }
 
-  public StatusCode setPrimaryKeys(List<String> primaryKeys) {
+  public StatusCode setPrimaryKeys(Set<String> primaryKeys) {
     for (String pk : primaryKeys) {
       if (!attributes.containsKey(pk)) {
         return StatusCode.ATTRIBUTE_NOT_FOUND;

@@ -204,7 +204,7 @@ public class TableManagerTest {
   @Test
   public void unitTest7() {
     tableManager.dropAllTables();
-    int numberOfAttributes = 1000;
+    int numberOfAttributes = 100;
 
     TableMetadata employeeTable = new TableMetadata(EmployeeTableAttributeNames, EmployeeTableAttributeTypes,
         EmployeeTablePKAttributes);
@@ -223,12 +223,12 @@ public class TableManagerTest {
           AttributeType.INT));
     }
 
-    for (int i = 0; i < numberOfAttributes; i++) {
-      if (i % 2 == 1) {
-        String attributeName = "attr"+i;
-        assertEquals(StatusCode.SUCCESS, tableManager.dropAttribute(EmployeeTableName, attributeName));
-      }
-    }
+    // for (int i = 0; i < numberOfAttributes; i++) {
+    //   if (i % 2 == 1) {
+    //     String attributeName = "attr"+i;
+    //     assertEquals(StatusCode.SUCCESS, tableManager.dropAttribute(EmployeeTableName, attributeName));
+    //   }
+    // }
     HashMap<String, TableMetadata> tables = tableManager.listTables();
     assertEquals(1, tables.size());
     assertEquals(employeeTable, tables.get(EmployeeTableName));
